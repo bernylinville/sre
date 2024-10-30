@@ -1,5 +1,5 @@
 
-name: 部署文档
+name: deploy github pages
 
 on:
   push:
@@ -18,34 +18,33 @@ jobs:
         with:
           fetch-depth: 0
           # 如果你文档需要 Git 子模块，取消注释下一行
-          # submodules: true
+          submodules: true
 
-      - name: 设置 pnpm
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: 设置 Node.js
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      - name: 安装依赖
+      - name: Install dependencies
         run: |
           corepack enable
           pnpm install --frozen-lockfile
 
-      - name: 构建文档
+      - name: Build docs
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
           pnpm run docs:build
           > src/.vuepress/dist/.nojekyll
 
-      - name: 部署文档
+      - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # 部署文档
           branch: gh-pages
           folder: src/.vuepress/dist
