@@ -5,8 +5,8 @@
     "target": "ES2022"
   },
   "include": [
-    "doc/.vuepress/**/*.ts",
-    "doc/.vuepress/**/*.vue"
+    "docs/.vuepress/**/*.ts",
+    "docs/.vuepress/**/*.vue"
   ],
   "exclude": [
     "node_modules"
